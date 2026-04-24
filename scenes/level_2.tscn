@@ -40,7 +40,7 @@ color = Color(0.2, 0.22, 0.32, 1)
 shape = SubResource("RectangleShape2D_ground")
 
 [node name="Platform1" type="StaticBody2D" parent="."]
-position = Vector2(260, 520)
+position = Vector2(260, 600)
 
 [node name="Sprite" type="ColorRect" parent="Platform1"]
 offset_left = -105.0
@@ -92,7 +92,7 @@ color = Color(0.32, 0.5, 0.76, 1)
 shape = SubResource("RectangleShape2D_platform")
 
 [node name="Coin1" type="Area2D" parent="." groups=["coins"]]
-position = Vector2(260, 478)
+position = Vector2(260, 558)
 script = ExtResource("1_coin")
 
 [node name="Sprite" type="ColorRect" parent="Coin1"]
