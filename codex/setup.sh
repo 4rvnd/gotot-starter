@@ -3,6 +3,12 @@ set -euo pipefail
 
 echo "=== Installing Godot runtime dependencies ==="
 sudo apt-get update -qq
+
+ALSA_PACKAGE="libasound2"
+if apt-cache show libasound2t64 >/dev/null 2>&1; then
+  ALSA_PACKAGE="libasound2t64"
+fi
+
 sudo apt-get install -y -qq \
   xvfb \
   x11-utils \
@@ -19,7 +25,7 @@ sudo apt-get install -y -qq \
   libxinerama1 \
   libxkbcommon0 \
   libpulse0 \
-  libasound2 \
+  "${ALSA_PACKAGE}" \
   imagemagick \
   ffmpeg \
   xdotool \
