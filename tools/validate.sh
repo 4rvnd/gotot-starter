@@ -9,7 +9,7 @@ if ! command -v "${GODOT_BIN}" >/dev/null 2>&1 && [[ ! -x "${GODOT_BIN}" ]]; the
   exit 127
 fi
 
-"${GODOT_BIN}" --path "${ROOT_DIR}" --headless --check-only 2>&1
+"${GODOT_BIN}" --path "${ROOT_DIR}" --headless --quit 2>&1
 
 if command -v gdformat >/dev/null 2>&1; then
   gdformat --check "${ROOT_DIR}/scripts"/*.gd
