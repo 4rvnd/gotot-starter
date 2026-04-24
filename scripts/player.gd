@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-signal respawned
+signal respawned(cause: String)
 
 const SPEED: float = 300.0
 const ACCELERATION: float = 1800.0
@@ -42,28 +42,30 @@ func _physics_process(delta: float) -> void:
 		sprite.scale.x = sign(direction)
 
 	if global_position.y > FALL_LIMIT_Y:
-		respawn()
+		respawn("fall")
 
 	if Engine.get_frames_drawn() % 90 == 0:
-		print("Player pos: %s | on_floor: %s | velocity: %s" % [
-			global_position,
-			is_on_floor(),
-			velocity,
-		])
+		print(
+			(
+				"Player pos: %s | on_floor: %s | velocity: %s"
+				% [
+					global_position,
+					is_on_floor(),
+					velocity,
+				]
+			)
+		)
 
 
 func set_spawn_position(next_spawn_position: Vector2) -> void:
 	spawn_position = next_spawn_position
 
 
-func respawn() -> void:
+func respawn(cause: String = "enemy") -> void:
 	global_position = spawn_position
 	velocity = Vector2.ZERO
-	respawned.emit()
+	respawned.emit(cause)
 
 
 func _jump_pressed() -> bool:
-	return (
-		Input.is_action_just_pressed("ui_accept")
-		or Input.is_action_just_pressed("ui_select")
-	)
+	return Input.is_action_just_pressed("ui_accept") or Input.is_action_just_pressed("ui_select")

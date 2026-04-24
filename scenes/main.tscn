@@ -1,10 +1,12 @@
-[gd_scene load_steps=11 format=3 uid="uid://skyline_coins_main"]
+[gd_scene load_steps=13 format=3 uid="uid://skyline_coins_main"]
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_main"]
 [ext_resource type="Script" path="res://scripts/player.gd" id="2_player"]
 [ext_resource type="Script" path="res://scripts/coin.gd" id="3_coin"]
 [ext_resource type="Script" path="res://scripts/patrol_enemy.gd" id="4_enemy"]
 [ext_resource type="Script" path="res://scripts/debug_overlay.gd" id="5_debug"]
+[ext_resource type="Script" path="res://scripts/chaser_enemy.gd" id="6_enemy"]
+[ext_resource type="Script" path="res://scripts/hopper_enemy.gd" id="7_enemy"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_player"]
 size = Vector2(32, 48)
@@ -227,6 +229,42 @@ color = Color(0.95, 0.18, 0.21, 1)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World/PatrolEnemy"]
 shape = SubResource("RectangleShape2D_enemy")
 
+[node name="ChaserEnemy" type="Area2D" parent="World" groups=["hazards"]]
+position = Vector2(980, 676)
+script = ExtResource("6_enemy")
+player_path = NodePath("../Player")
+speed = 135.0
+aggro_range = 240.0
+return_speed = 85.0
+
+[node name="Sprite" type="ColorRect" parent="World/ChaserEnemy"]
+offset_left = -17.0
+offset_top = -14.0
+offset_right = 17.0
+offset_bottom = 14.0
+color = Color(0.98, 0.47, 0.2, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/ChaserEnemy"]
+shape = SubResource("RectangleShape2D_enemy")
+
+[node name="HopperEnemy" type="Area2D" parent="World" groups=["hazards"]]
+position = Vector2(430, 676)
+script = ExtResource("7_enemy")
+hop_height = 66.0
+hop_speed = 1.8
+drift_frequency = 0.35
+drift_range = 95.0
+
+[node name="Sprite" type="ColorRect" parent="World/HopperEnemy"]
+offset_left = -17.0
+offset_top = -14.0
+offset_right = 17.0
+offset_bottom = 14.0
+color = Color(0.82, 0.28, 0.91, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/HopperEnemy"]
+shape = SubResource("RectangleShape2D_enemy")
+
 [node name="HUD" type="CanvasLayer" parent="."]
 
 [node name="DebugOverlay" type="Label" parent="HUD"]
@@ -246,10 +284,93 @@ offset_bottom = 44.0
 theme_override_font_sizes/font_size = 24
 text = "Coins: 0 / 6"
 
+[node name="LivesLabel" type="Label" parent="HUD"]
+offset_left = 1030.0
+offset_top = 46.0
+offset_right = 1260.0
+offset_bottom = 78.0
+theme_override_font_sizes/font_size = 24
+text = "Lives: 3"
+
 [node name="MessageLabel" type="Label" parent="HUD"]
 offset_left = 410.0
 offset_top = 18.0
 offset_right = 890.0
 offset_bottom = 52.0
 theme_override_font_sizes/font_size = 20
-text = "Collect every coin. Avoid the red patrol."
+text = "Press Start to begin."
+
+[node name="GameOverPanel" type="ColorRect" parent="HUD"]
+visible = false
+offset_left = 390.0
+offset_top = 170.0
+offset_right = 900.0
+offset_bottom = 530.0
+color = Color(0.24, 0.05, 0.08, 0.94)
+
+[node name="TitleLabel" type="Label" parent="HUD/GameOverPanel"]
+offset_left = 145.0
+offset_top = 52.0
+offset_right = 366.0
+offset_bottom = 110.0
+theme_override_font_sizes/font_size = 40
+horizontal_alignment = 1
+text = "Game Over"
+
+[node name="RetryButton" type="Button" parent="HUD/GameOverPanel"]
+offset_left = 150.0
+offset_top = 186.0
+offset_right = 360.0
+offset_bottom = 247.0
+theme_override_font_sizes/font_size = 28
+text = "Retry"
+
+[node name="QuitButton" type="Button" parent="HUD/GameOverPanel"]
+offset_left = 150.0
+offset_top = 267.0
+offset_right = 360.0
+offset_bottom = 328.0
+theme_override_font_sizes/font_size = 28
+text = "Quit"
+
+[node name="VictoryPanel" type="ColorRect" parent="HUD"]
+visible = false
+offset_left = 390.0
+offset_top = 170.0
+offset_right = 900.0
+offset_bottom = 530.0
+color = Color(0.05, 0.23, 0.14, 0.94)
+
+[node name="TitleLabel" type="Label" parent="HUD/VictoryPanel"]
+offset_left = 150.0
+offset_top = 52.0
+offset_right = 360.0
+offset_bottom = 110.0
+theme_override_font_sizes/font_size = 40
+horizontal_alignment = 1
+text = "Victory"
+
+[node name="SummaryLabel" type="Label" parent="HUD/VictoryPanel"]
+offset_left = 84.0
+offset_top = 124.0
+offset_right = 425.0
+offset_bottom = 165.0
+theme_override_font_sizes/font_size = 24
+horizontal_alignment = 1
+text = "All coins collected!"
+
+[node name="PlayAgainButton" type="Button" parent="HUD/VictoryPanel"]
+offset_left = 150.0
+offset_top = 206.0
+offset_right = 360.0
+offset_bottom = 267.0
+theme_override_font_sizes/font_size = 28
+text = "Play Again"
+
+[node name="QuitButton" type="Button" parent="HUD/VictoryPanel"]
+offset_left = 150.0
+offset_top = 286.0
+offset_right = 360.0
+offset_bottom = 347.0
+theme_override_font_sizes/font_size = 28
+text = "Quit"
