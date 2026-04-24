@@ -1,0 +1,214 @@
+[gd_scene load_steps=12 format=3 uid="uid://dmi8ckme3myvr"]
+
+[ext_resource type="Script" path="res://scripts/coin.gd" id="1_coin"]
+[ext_resource type="Script" path="res://scripts/patrol_enemy.gd" id="2_patrol"]
+[ext_resource type="Script" path="res://scripts/chaser_enemy.gd" id="3_chaser"]
+[ext_resource type="Script" path="res://scripts/hopper_enemy.gd" id="4_hopper"]
+[ext_resource type="Script" path="res://scripts/goal.gd" id="5_goal"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ground"]
+size = Vector2(1280, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_platform"]
+size = Vector2(180, 18)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_coin"]
+radius = 14.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_enemy"]
+size = Vector2(34, 28)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_goal"]
+size = Vector2(36, 64)
+
+[node name="Level1" type="Node2D"]
+
+[node name="SpawnPoint" type="Marker2D" parent="."]
+position = Vector2(96, 636)
+
+[node name="Ground" type="StaticBody2D" parent="."]
+position = Vector2(640, 704)
+
+[node name="Sprite" type="ColorRect" parent="Ground"]
+offset_left = -640.0
+offset_top = -16.0
+offset_right = 640.0
+offset_bottom = 16.0
+color = Color(0.34, 0.26, 0.18, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ground"]
+shape = SubResource("RectangleShape2D_ground")
+
+[node name="Platform1" type="StaticBody2D" parent="."]
+position = Vector2(260, 604)
+
+[node name="Sprite" type="ColorRect" parent="Platform1"]
+offset_left = -90.0
+offset_top = -9.0
+offset_right = 90.0
+offset_bottom = 9.0
+color = Color(0.29, 0.66, 0.36, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platform1"]
+shape = SubResource("RectangleShape2D_platform")
+
+[node name="Platform2" type="StaticBody2D" parent="."]
+position = Vector2(500, 508)
+
+[node name="Sprite" type="ColorRect" parent="Platform2"]
+offset_left = -90.0
+offset_top = -9.0
+offset_right = 90.0
+offset_bottom = 9.0
+color = Color(0.29, 0.66, 0.36, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platform2"]
+shape = SubResource("RectangleShape2D_platform")
+
+[node name="Platform3" type="StaticBody2D" parent="."]
+position = Vector2(760, 410)
+
+[node name="Sprite" type="ColorRect" parent="Platform3"]
+offset_left = -90.0
+offset_top = -9.0
+offset_right = 90.0
+offset_bottom = 9.0
+color = Color(0.29, 0.66, 0.36, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platform3"]
+shape = SubResource("RectangleShape2D_platform")
+
+[node name="Platform4" type="StaticBody2D" parent="."]
+position = Vector2(1030, 314)
+
+[node name="Sprite" type="ColorRect" parent="Platform4"]
+offset_left = -90.0
+offset_top = -9.0
+offset_right = 90.0
+offset_bottom = 9.0
+color = Color(0.29, 0.66, 0.36, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platform4"]
+shape = SubResource("RectangleShape2D_platform")
+
+[node name="Coin1" type="Area2D" parent="." groups=["coins"]]
+position = Vector2(260, 562)
+script = ExtResource("1_coin")
+
+[node name="Sprite" type="ColorRect" parent="Coin1"]
+offset_left = -11.0
+offset_top = -11.0
+offset_right = 11.0
+offset_bottom = 11.0
+color = Color(1, 0.86, 0.16, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Coin1"]
+shape = SubResource("CircleShape2D_coin")
+
+[node name="Coin2" type="Area2D" parent="." groups=["coins"]]
+position = Vector2(500, 466)
+script = ExtResource("1_coin")
+
+[node name="Sprite" type="ColorRect" parent="Coin2"]
+offset_left = -11.0
+offset_top = -11.0
+offset_right = 11.0
+offset_bottom = 11.0
+color = Color(1, 0.86, 0.16, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Coin2"]
+shape = SubResource("CircleShape2D_coin")
+
+[node name="Coin3" type="Area2D" parent="." groups=["coins"]]
+position = Vector2(760, 368)
+script = ExtResource("1_coin")
+
+[node name="Sprite" type="ColorRect" parent="Coin3"]
+offset_left = -11.0
+offset_top = -11.0
+offset_right = 11.0
+offset_bottom = 11.0
+color = Color(1, 0.86, 0.16, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Coin3"]
+shape = SubResource("CircleShape2D_coin")
+
+[node name="Coin4" type="Area2D" parent="." groups=["coins"]]
+position = Vector2(1030, 272)
+script = ExtResource("1_coin")
+
+[node name="Sprite" type="ColorRect" parent="Coin4"]
+offset_left = -11.0
+offset_top = -11.0
+offset_right = 11.0
+offset_bottom = 11.0
+color = Color(1, 0.86, 0.16, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Coin4"]
+shape = SubResource("CircleShape2D_coin")
+
+[node name="PatrolEnemy" type="Area2D" parent="." groups=["hazards"]]
+position = Vector2(670, 676)
+script = ExtResource("2_patrol")
+speed = 105.0
+patrol_distance = 170.0
+
+[node name="Sprite" type="ColorRect" parent="PatrolEnemy"]
+offset_left = -17.0
+offset_top = -14.0
+offset_right = 17.0
+offset_bottom = 14.0
+color = Color(0.95, 0.18, 0.21, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PatrolEnemy"]
+shape = SubResource("RectangleShape2D_enemy")
+
+[node name="ChaserEnemy" type="Area2D" parent="." groups=["hazards"]]
+position = Vector2(980, 676)
+script = ExtResource("3_chaser")
+player_path = NodePath("../../../Player")
+speed = 135.0
+aggro_range = 240.0
+return_speed = 85.0
+
+[node name="Sprite" type="ColorRect" parent="ChaserEnemy"]
+offset_left = -17.0
+offset_top = -14.0
+offset_right = 17.0
+offset_bottom = 14.0
+color = Color(0.98, 0.47, 0.2, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ChaserEnemy"]
+shape = SubResource("RectangleShape2D_enemy")
+
+[node name="HopperEnemy" type="Area2D" parent="." groups=["hazards"]]
+position = Vector2(420, 676)
+script = ExtResource("4_hopper")
+hop_height = 66.0
+hop_speed = 1.8
+drift_frequency = 0.35
+drift_range = 95.0
+
+[node name="Sprite" type="ColorRect" parent="HopperEnemy"]
+offset_left = -17.0
+offset_top = -14.0
+offset_right = 17.0
+offset_bottom = 14.0
+color = Color(0.82, 0.28, 0.91, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HopperEnemy"]
+shape = SubResource("RectangleShape2D_enemy")
+
+[node name="Goal" type="Area2D" parent="."]
+position = Vector2(1180, 642)
+script = ExtResource("5_goal")
+
+[node name="Sprite" type="ColorRect" parent="Goal"]
+offset_left = -18.0
+offset_top = -32.0
+offset_right = 18.0
+offset_bottom = 32.0
+color = Color(0.28, 0.28, 0.32, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Goal"]
+shape = SubResource("RectangleShape2D_goal")

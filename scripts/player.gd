@@ -1,6 +1,7 @@
 extends CharacterBody2D
 
 signal respawned(cause: String)
+signal jumped
 
 const SPEED: float = 300.0
 const ACCELERATION: float = 1800.0
@@ -26,6 +27,7 @@ func _physics_process(delta: float) -> void:
 
 	if is_on_floor() and _jump_pressed():
 		velocity.y = JUMP_VELOCITY
+		jumped.emit()
 
 	var direction: float = Input.get_axis("ui_left", "ui_right")
 	var target_speed: float = direction * SPEED
@@ -64,8 +66,19 @@ func set_spawn_position(next_spawn_position: Vector2) -> void:
 func respawn(cause: String = "enemy") -> void:
 	global_position = spawn_position
 	velocity = Vector2.ZERO
+	if cause == "enemy":
+		_play_hit_feedback()
 	respawned.emit(cause)
 
 
 func _jump_pressed() -> bool:
 	return Input.is_action_just_pressed("ui_accept") or Input.is_action_just_pressed("ui_select")
+
+
+func _play_hit_feedback() -> void:
+	var tween := create_tween()
+	tween.set_parallel(true)
+	tween.tween_property(sprite, "modulate", Color(1.0, 0.35, 0.35, 1.0), 0.07)
+	tween.tween_property(sprite, "scale", Vector2(1.15, 0.85), 0.07)
+	tween.chain().tween_property(sprite, "modulate", Color(1, 1, 1, 1), 0.13)
+	tween.parallel().tween_property(sprite, "scale", Vector2.ONE, 0.13)
