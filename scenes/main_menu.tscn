@@ -1,0 +1,43 @@
+[gd_scene load_steps=2 format=3 uid="uid://c7obdbx0v7okm"]
+
+[ext_resource type="Script" path="res://scripts/main_menu.gd" id="1_menu"]
+
+[node name="MainMenu" type="CanvasLayer"]
+script = ExtResource("1_menu")
+
+[node name="Overlay" type="ColorRect" parent="."]
+offset_right = 1280.0
+offset_bottom = 720.0
+color = Color(0, 0, 0, 0.72)
+
+[node name="Panel" type="ColorRect" parent="Overlay"]
+offset_left = 420.0
+offset_top = 180.0
+offset_right = 860.0
+offset_bottom = 540.0
+color = Color(0.12, 0.17, 0.24, 0.96)
+
+[node name="TitleLabel" type="Label" parent="Overlay/Panel"]
+offset_left = 74.0
+offset_top = 54.0
+offset_right = 366.0
+offset_bottom = 111.0
+theme_override_font_sizes/font_size = 40
+horizontal_alignment = 1
+text = "Skyline Coins"
+
+[node name="StartButton" type="Button" parent="Overlay/Panel"]
+offset_left = 114.0
+offset_top = 174.0
+offset_right = 326.0
+offset_bottom = 234.0
+theme_override_font_sizes/font_size = 28
+text = "Start"
+
+[node name="QuitButton" type="Button" parent="Overlay/Panel"]
+offset_left = 114.0
+offset_top = 258.0
+offset_right = 326.0
+offset_bottom = 318.0
+theme_override_font_sizes/font_size = 28
+text = "Quit"

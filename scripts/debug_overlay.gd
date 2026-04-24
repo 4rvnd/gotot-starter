@@ -12,11 +12,17 @@ func _process(_delta: float) -> void:
 	text = "FPS: %d" % Engine.get_frames_per_second()
 
 	if player != null:
-		text += "\nPlayer: %.0f, %.0f" % [
-			player.global_position.x,
-			player.global_position.y,
-		]
-		text += "\nVelocity: %.0f, %.0f" % [
-			player.velocity.x,
-			player.velocity.y,
-		]
+		text += (
+			"\nPlayer: %.0f, %.0f"
+			% [
+				player.global_position.x,
+				player.global_position.y,
+			]
+		)
+		text += (
+			"\nVelocity: %.0f, %.0f"
+			% [
+				player.velocity.x,
+				player.velocity.y,
+			]
+		)

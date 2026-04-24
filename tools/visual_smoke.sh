@@ -5,6 +5,9 @@ ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 GODOT_BIN="${GODOT_BIN:-godot}"
 SCREENSHOT_PATH="${SCREENSHOT_PATH:-/tmp/skyline-coins-smoke.png}"
 DISPLAY_VALUE="${DISPLAY:-:99}"
+if [[ "${DISPLAY_VALUE}" != :* ]]; then
+  DISPLAY_VALUE=":${DISPLAY_VALUE}"
+fi
 
 if ! command -v "${GODOT_BIN}" >/dev/null 2>&1 && [[ ! -x "${GODOT_BIN}" ]]; then
   echo "visual_smoke: Godot binary not found. Install Godot 4.4+ or set GODOT_BIN=/path/to/godot." >&2
